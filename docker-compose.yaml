@@ -1,0 +1,19 @@
+# infraestructura/docker/docker-compose.yaml
+services:
+  postgres:
+    image: postgres:15
+    container_name: karemeru-db
+    environment:
+      POSTGRES_DB: karemeru
+      POSTGRES_USER: karemeru
+      POSTGRES_PASSWORD: karemeru
+    ports:
+      - "5435:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U karemeru -d karemeru"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  karemeru_data:
